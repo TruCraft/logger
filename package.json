@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "name": "tru-logger",
   "version": "0.0.1",
   "description": "NodeJS logger",
   "main": "logger.js",

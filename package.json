@@ -1,16 +1,20 @@
 {
-  "name": "node_logger",
-  "version": "0.1.0",
+  "name": "logger",
+  "version": "0.0.1",
   "description": "NodeJS logger",
   "main": "logger.js",
-  "dependencies": {
-    "colors": "~0.6.0-1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jacobtruman/logger.git"
+  },
   "author": "Jacob Truman",
-  "license": "BSD"
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "5d68c8170aa0847017739f86ab124b7e32cf9710",
+  "dependencies": {
+    "colors": "~0.6.2"
+  }
 }

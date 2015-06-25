@@ -1,55 +1,102 @@
-require('colors');
+var colors = require('colors');
 
-function logger(logFile, date){
+colors.setTheme({
+	error: 'red',
+	info: 'cyan',
+	warning: 'yellow',
+	success: 'green',
+	chat: 'magenta',
+	add: 'grey'
+});
+
+Object.defineProperty(global, '__stack', {
+	get: function() {
+		var orig = Error.prepareStackTrace;
+		Error.prepareStackTrace = function(_, stack) {
+			return stack;
+		};
+		var err = new Error;
+		Error.captureStackTrace(err, arguments.callee);
+		var stack = err.stack;
+		Error.prepareStackTrace = orig;
+		return stack;
+	}
+});
+
+Object.defineProperty(global, '__line', {
+	get: function() {
+		return __stack[1].getLineNumber();
+	}
+});
+
+Object.defineProperty(global, '__function', {
+	get: function() {
+		return __stack[1].getFunctionName();
+	}
+});
+
+
+function logger(logFile, date, print){
 	this.logFile = logFile;
 	if(date !== undefined) {
 		this.date = date;
 	} else {
 		this.date = false;
 	}
+
+	if(print !== undefined) {
+		this.print = print;
+	} else {
+		this.print = true;
+	}
 }
 
 var p = logger.prototype;
 var fs = require('fs');
 
-p.error = function(msg){
-	msg = this.buildMsg("ERROR: "+msg.toString());
-	console.log((msg).red);
-	this.append(msg);
+p.error = function(msg) {
+	var func = this.cleanFunctionName(__function);
+	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	this.append(msg, func);
 }
 
-p.info = function(msg){
-	msg = this.buildMsg("INFO: "+msg.toString());
-	console.log((msg).cyan);
-	this.append(msg);
+p.info = function(msg) {
+	var func = this.cleanFunctionName(__function);
+	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	this.append(msg, func);
 }
 
-p.warning = function(msg){
-	msg = this.buildMsg("WARNING: "+msg.toString());
-	console.log((msg).yellow);
-	this.append(msg);
+p.warning = function(msg) {
+	var func = this.cleanFunctionName(__function);
+	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	this.append(msg, func);
 }
 
-p.success = function(msg){
-	msg = this.buildMsg("SUCCESS: "+msg.toString());
-	console.log((msg).green);
-	this.append(msg);
+p.success = function(msg) {
+	var func = this.cleanFunctionName(__function);
+	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	this.append(msg, func);
 }
 
-p.chat = function(msg){
-	msg = this.buildMsg("CHAT: "+msg.toString());
-	console.log((msg).magenta);
-	this.append(msg);
+p.chat = function(msg) {
+	var func = this.cleanFunctionName(__function);
+	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	this.append(msg, func);
 }
 
-p.add = function(msg){
+p.add = function(msg) {
+	var func = this.cleanFunctionName(__function);
 	msg = this.buildMsg(msg.toString());
-	console.log((msg).grey);
-	this.append(msg);
+	this.append(msg, func);
 }
 
-p.append = function(msg)
-{
+p.append = function(msg, type) {
+	if(this.print) {
+		if(type === undefined) {
+			type = "add";
+		}
+		console.log(colors[type](msg));
+	}
 	fs.appendFile(this.logFile, msg+"\n", function (err) {
 		if (err) throw err;
 	});
@@ -61,6 +108,10 @@ p.buildMsg = function(msg) {
 		msg = date.toJSON() + " :: " + msg.toString();
 	}
 	return msg;
+}
+
+p.cleanFunctionName = function(func) {
+	return func.substring(func.indexOf(".") + 1);
 }
 
 module.exports = logger;

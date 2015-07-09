@@ -36,18 +36,17 @@ Object.defineProperty(global, '__function', {
 });
 
 
-function logger(logFile, date, print){
-	this.logFile = logFile;
-	if(date !== undefined) {
-		this.date = date;
+function logger(options){
+	if(options !== undefined) {
+		this.options = options;
 	} else {
-		this.date = false;
+		this.options = [];
 	}
 
-	if(print !== undefined) {
-		this.print = print;
+	if(options.log_level !== undefined) {
+		this.log_level = options.log_level;
 	} else {
-		this.print = true;
+		this.log_level = "all";
 	}
 }
 
@@ -91,22 +90,32 @@ p.add = function(msg) {
 }
 
 p.append = function(msg, type) {
-	if(this.print) {
+	if(this.options.print !== undefined && this.options.print) {
 		if(type === undefined) {
 			type = "add";
 		}
-		console.log(colors[type](msg));
+		if(this.log_level == "all" || this.log_level.indexOf(type) >= 0) {
+			console.log(colors[type](msg));
+		}
 	}
-	fs.appendFile(this.logFile, msg+"\n", function (err) {
-		if (err) throw err;
-	});
+
+	if(this.options.file !== undefined) {
+		fs.appendFile(this.options.file, msg + "\n", function(err) {
+			if(err) throw err;
+		});
+	}
 }
 
 p.buildMsg = function(msg) {
-	if (this.date) {
+	if (this.options.prefix !== undefined) {
+		msg = this.options.prefix + " :: " + msg.toString();
+	}
+
+	if (this.options.date !== undefined) {
 		var date = new Date();
 		msg = date.toJSON() + " :: " + msg.toString();
 	}
+
 	return msg;
 }
 

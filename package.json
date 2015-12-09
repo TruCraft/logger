@@ -1,6 +1,6 @@
 {
   "name": "tru-logger",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "NodeJS logger",
   "main": "logger.js",
   "scripts": {
@@ -10,11 +10,22 @@
     "type": "git",
     "url": "git://github.com/jacobtruman/logger.git"
   },
-  "author": "Jacob Truman",
+  "author": {
+    "name": "Jacob Truman"
+  },
   "license": "BSD",
   "readmeFilename": "README.md",
   "gitHead": "5d68c8170aa0847017739f86ab124b7e32cf9710",
   "dependencies": {
-    "colors": "~0.6.2"
-  }
+    "colors": "^1.1.2"
+  },
+  "readme": "logger\n======\n\nNode JS logger\n",
+  "bugs": {
+    "url": "https://github.com/jacobtruman/logger/issues"
+  },
+  "homepage": "https://github.com/jacobtruman/logger#readme",
+  "_id": "tru-logger@0.0.7",
+  "_shasum": "165c3802b565bc2cade20783beea146177f6e023",
+  "_from": "tru-logger@*"
 }
+

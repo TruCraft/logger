@@ -6,6 +6,7 @@ colors.setTheme({
 	warning: 'yellow',
 	success: 'green',
 	chat: 'magenta',
+	standout: 'white',
 	add: 'grey'
 });
 
@@ -78,6 +79,12 @@ p.success = function(msg) {
 }
 
 p.chat = function(msg) {
+	var func = this.cleanFunctionName(__function);
+	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	this.append(msg, func);
+}
+
+p.standout = function(msg) {
 	var func = this.cleanFunctionName(__function);
 	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
 	this.append(msg, func);

@@ -6,7 +6,7 @@ colors.setTheme({
 	warning: 'yellow',
 	success: 'green',
 	chat: 'magenta',
-	standout: 'white',
+	attention: 'white',
 	add: 'grey'
 });
 
@@ -84,7 +84,7 @@ p.chat = function(msg) {
 	this.append(msg, func);
 }
 
-p.standout = function(msg) {
+p.attention = function(msg) {
 	var func = this.cleanFunctionName(__function);
 	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
 	this.append(msg, func);

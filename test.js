@@ -4,7 +4,7 @@ var options1 = {
 	file: __dirname + "/log1.txt",
 	date: true,
 	print: true,
-	log_level: ["success", "error"],
+	log_level: ["success", "error", "attention"],
 	prefix: "log1"
 };
 
@@ -22,6 +22,8 @@ myLog1.info("This is an info");
 myLog1.warning("This is a warning");
 myLog1.chat("This is a chat");
 myLog1.success("This is a success");
+myLog1.attention("This is an attention");
+myLog1.info();
 
 myLog2.error("This is an error");
 myLog2.info("This is an info");

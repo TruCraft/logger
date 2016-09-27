@@ -1,6 +1,6 @@
 var colors = require('colors');
 
-colors.setTheme({
+var types = {
 	error: 'red',
 	info: 'cyan',
 	warning: 'yellow',
@@ -8,7 +8,21 @@ colors.setTheme({
 	chat: 'magenta',
 	attention: 'white',
 	add: 'grey'
-});
+};
+
+colors.setTheme(types);
+
+var max_type_len = null;
+function getMaxTypeLength() {
+	if(max_type_len === null) {
+		for(var type in types) {
+			if(type.length > max_type_len) {
+				max_type_len = type.length;
+			}
+		}
+	}
+	return max_type_len;
+}
 
 Object.defineProperty(global, '__stack', {
 	get: function() {
@@ -37,7 +51,7 @@ Object.defineProperty(global, '__function', {
 });
 
 
-function logger(options){
+function logger(options) {
 	if(options !== undefined) {
 		this.options = options;
 	} else {
@@ -56,43 +70,43 @@ var fs = require('fs');
 
 p.error = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	msg = this.buildMsg(msg, func);
 	this.append(msg, func);
 }
 
 p.info = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	msg = this.buildMsg(msg, func);
 	this.append(msg, func);
 }
 
 p.warning = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	msg = this.buildMsg(msg, func);
 	this.append(msg, func);
 }
 
 p.success = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	msg = this.buildMsg(msg, func);
 	this.append(msg, func);
 }
 
 p.chat = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	msg = this.buildMsg(msg, func);
 	this.append(msg, func);
 }
 
 p.attention = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(func.toUpperCase() + ": " + msg.toString());
+	msg = this.buildMsg(msg, func);
 	this.append(msg, func);
 }
 
 p.add = function(msg) {
 	var func = this.cleanFunctionName(__function);
-	msg = this.buildMsg(msg.toString());
+	msg = this.buildMsg(msg);
 	this.append(msg, func);
 }
 
@@ -113,12 +127,26 @@ p.append = function(msg, type) {
 	}
 }
 
-p.buildMsg = function(msg) {
-	if (this.options.prefix !== undefined) {
+p.buildMsg = function(msg, type) {
+	if(msg === undefined) {
+		msg = "undefined log message";
+	}
+
+	if(type === undefined) {
+		type = "add";
+	}
+	var min_length = getMaxTypeLength();
+	while(type.length !== min_length) {
+		//type = " " + type;
+		type += " ";
+	}
+	msg = type.toUpperCase() + " :: " + msg.toString();
+
+	if(this.options.prefix !== undefined) {
 		msg = this.options.prefix + " :: " + msg.toString();
 	}
 
-	if (this.options.date !== undefined) {
+	if(this.options.date !== undefined) {
 		var date = new Date();
 		msg = date.toJSON() + " :: " + msg.toString();
 	}

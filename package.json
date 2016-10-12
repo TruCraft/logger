@@ -14,17 +14,7 @@
     "name": "Jacob Truman"
   },
   "license": "BSD",
-  "readmeFilename": "README.md",
-  "gitHead": "5d68c8170aa0847017739f86ab124b7e32cf9710",
   "dependencies": {
     "colors": "^1.1.2"
-  },
-  "readme": "logger\n======\n\nNode JS logger\n",
-  "bugs": {
-    "url": "https://github.com/TruCraft/logger/issues"
-  },
-  "homepage": "https://github.com/TruCraft/logger#readme",
-  "_id": "tru-logger@0.0.7",
-  "_shasum": "165c3802b565bc2cade20783beea146177f6e023",
-  "_from": "tru-logger@*"
+  }
 }

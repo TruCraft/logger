@@ -4,7 +4,7 @@
   "description": "NodeJS logger",
   "main": "logger.js",
   "scripts": {
-    "postversion": "git push"
+    "postversion": "git push; npm publish"
   },
   "repository": {
     "type": "git",

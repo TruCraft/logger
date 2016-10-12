@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jacobtruman/logger.git"
+    "url": "git://github.com/TruCraft/logger.git"
   },
   "author": {
     "name": "Jacob Truman"
@@ -21,9 +21,9 @@
   },
   "readme": "logger\n======\n\nNode JS logger\n",
   "bugs": {
-    "url": "https://github.com/jacobtruman/logger/issues"
+    "url": "https://github.com/TruCraft/logger/issues"
   },
-  "homepage": "https://github.com/jacobtruman/logger#readme",
+  "homepage": "https://github.com/TruCraft/logger#readme",
   "_id": "tru-logger@0.0.7",
   "_shasum": "165c3802b565bc2cade20783beea146177f6e023",
   "_from": "tru-logger@*"

@@ -1,6 +1,6 @@
 {
   "name": "tru-logger",
-  "version": "0.1.6",
+  "version": "0.1.5",
   "description": "NodeJS logger",
   "main": "logger.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/TruCraft/logger.git"
+    "url": "git://github.com/TruCraft/tru-logger.git"
   },
   "author": {
     "name": "Jacob Truman"

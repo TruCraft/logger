@@ -121,6 +121,9 @@ p.append = function(msg, type) {
 	}
 
 	if(this.options.file !== undefined) {
+		if(this.options.write_color !== undefined && this.options.write_color) {
+			msg = colors[type](msg);
+		}
 		fs.appendFile(this.options.file, msg + "\n", function(err) {
 			if(err) throw err;
 		});
@@ -146,7 +149,7 @@ p.buildMsg = function(msg, type) {
 		msg = this.options.prefix + " :: " + msg.toString();
 	}
 
-	if(this.options.date !== undefined) {
+	if(this.options.date !== undefined && this.options.date) {
 		var date = new Date();
 		msg = date.toJSON() + " :: " + msg.toString();
 	}
